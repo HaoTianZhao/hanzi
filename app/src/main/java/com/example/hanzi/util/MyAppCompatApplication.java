@@ -20,16 +20,16 @@ public class MyAppCompatApplication extends AppCompatActivity {
     /**
      * 汉字个数，当前汉字id，汉字名，汉字笔划id，笔划图片id，汉字列表，笔划数量，按钮id
      */
-    protected int number;
-    protected int currentNumber;
-    protected String[] names;
-    protected String[] hints;
-    protected int[][] orders;
-    protected int[] imageIds;
-    protected List<Character> characterList;
+    protected static int number;
+    protected static int currentNumber;
+    protected static String[] names;
+    protected static String[] hints;
+    protected static int[][] orders;
+    protected static int[] imageIds;
+    protected static List<Character> characterList;
 
-    protected int buttonNumbers;
-    protected int[] buttonIds;
+    protected static int buttonNumbers;
+    protected static int[] buttonIds;
 
     /**
      * 控制程序流程的状态标志

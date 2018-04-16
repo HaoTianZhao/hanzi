@@ -6,6 +6,10 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.example.hanzi.R;
+import com.example.hanzi.util.ReplayListener;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by 赵 on 2018/4/5.
@@ -52,19 +56,49 @@ public class Character {
         return false;
     }
 
-    public void replay() {
+    public void replay(final ReplayListener replay) {
         clear();
-        for (int i = 0; i < length; i++) {
-            ImageView imageView = new ImageView(context);
-            imageView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-            imageView.setImageResource(imageIds[i]);
-            frame.addView(imageView);
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        index = 0;
+
+        final Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            int i = 0;
+
+            @Override
+            public void run() {
+                frame.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (i < length) {
+                            ImageView imageView = new ImageView(context);
+                            imageView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                            imageView.setImageResource(imageIds[i]);
+                            //Glide.with(context).load(imageIds[i]).into(imageView);//如果卡顿，可以用这个图片加载库Glide
+                            frame.addView(imageView);
+                            frame.invalidate();
+                            i++;
+                        }
+
+                        //结束timer，让汉字再显示一会，然后清屏，改变replay的状态
+                        if (i == length + 1) {
+                            timer.cancel();
+                            try {
+                                Thread.sleep(300);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            clear();
+                            replay.setReplay(false);
+                        }
+                        //画完了，但是直接阻塞线程会让frame还没画出最后一笔就被clear了，所以再让Timer执行一次
+                        if (i == length) {
+                            i++;
+                        }
+                    }
+                });
             }
-        }
+        };
+        timer.schedule(task, 0, 300);
     }
 
     public static void clear() {
@@ -73,4 +107,5 @@ public class Character {
         image.setImageResource(R.drawable.tian_zi_ge);
         frame.addView(image);
     }
+
 }
