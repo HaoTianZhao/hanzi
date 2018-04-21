@@ -63,7 +63,6 @@ public class Character {
         final Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             int i = 0;
-
             @Override
             public void run() {
                 frame.post(new Runnable() {
@@ -77,10 +76,10 @@ public class Character {
                             frame.addView(imageView);
                             frame.invalidate();
                             i++;
+                            return;
                         }
-
                         //结束timer，让汉字再显示一会，然后清屏，改变replay的状态
-                        if (i == length + 1) {
+                        if (i == length) {
                             timer.cancel();
                             try {
                                 Thread.sleep(300);
@@ -90,14 +89,11 @@ public class Character {
                             clear();
                             replay.setReplay(false);
                         }
-                        //画完了，但是直接阻塞线程会让frame还没画出最后一笔就被clear了，所以再让Timer执行一次
-                        if (i == length) {
-                            i++;
-                        }
                     }
                 });
             }
         };
+
         timer.schedule(task, 0, 300);
     }
 

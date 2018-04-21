@@ -18,6 +18,12 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".service.MusicService"
+            android:enabled="true"
+            android:exported="false">
+        </service>
     </application>
 
 </manifest>
