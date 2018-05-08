@@ -1,21 +1,21 @@
 <resources>
-    <string name="app_name">HanZi</string>
-    <string name="action_settings">Settings</string>
+<string name="app_name">HanZi</string>
+<string name="action_settings">Settings</string>
 
-    <string name="number">1</string>
-    
-    <string name="buttonNumber">12</string>
+<string name="number">1</string>
 
-    <string-array name="name">
-        <item>ti</item>
-    </string-array>
+<string name="buttonNumber">12</string>
 
-    <string-array name="order">
-        <item>0,0,1,2,0,0,1,2,3,4,0,0</item>
-    </string-array>
+<string-array name="name">
+    <item>ti</item>
+</string-array>
 
-    <string-array name="hint">
-        <item>(\t\t)天行道</item>
-    </string-array>
+<string-array name="order">
+    <item>0,0,1,2,0,0,1,2,3,4,0,0</item>
+</string-array>
+
+<string-array name="hint">
+    <item>(\t\t)天行道</item>
+</string-array>
 
 </resources>

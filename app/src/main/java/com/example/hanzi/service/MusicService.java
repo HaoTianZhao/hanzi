@@ -34,6 +34,13 @@ public class MusicService extends Service {
         public void changeVolume(float volume) {
             mediaPlayer.setVolume(volume, volume);
         }
+
+        public void changeStatus(){
+            if(mediaPlayer.isPlaying())
+                mediaPlayer.pause();
+            else
+                mediaPlayer.start();
+        }
     }
 
     @Override

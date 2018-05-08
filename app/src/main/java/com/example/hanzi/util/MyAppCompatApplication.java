@@ -6,6 +6,7 @@ import android.content.ServiceConnection;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
@@ -18,15 +19,14 @@ import java.util.List;
 
 /**
  * Created by 赵 on 2018/4/4.
- * .
+ * 资源都是从res/values/strings.xml文件中读出的
  */
 
 public class MyAppCompatApplication extends AppCompatActivity {
     /**
-     * 汉字个数，当前汉字id，汉字名，汉字笔划id，笔划图片id，汉字列表，笔划数量，按钮id
+     * 汉字个数，汉字名，汉字提示，汉字笔划顺序，笔划图片id，汉字列表，笔划数量，按钮id
      */
     protected static int number;
-    protected static int currentNumber;
     protected static String[] names;
     protected static String[] hints;
     protected static int[][] orders;
@@ -37,21 +37,29 @@ public class MyAppCompatApplication extends AppCompatActivity {
     protected static int[] buttonIds;
 
     /**
-     * 控制程序流程的状态标志
+     * 控制程序流程的状态标识
      */
+    protected static int currentNumber;//当前汉字id
     protected static long time;
     protected static boolean isFirstStart = true;
 
     /**
-     * 绑定服务的代码
+     * 绑定服务的连接
      */
     public static MusicService.MusicBinder musicBinder;
     public static ServiceConnection connection;
+
+    /**
+     * androidID作为设备唯一标识
+     */
+    protected static String ANDROID_ID;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         init();
+        ANDROID_ID = Settings.System.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
     }
 
     @Override

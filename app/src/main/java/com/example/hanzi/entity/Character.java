@@ -25,6 +25,7 @@ public class Character {
         frame = frameLayout;
     }
 
+    public int error_time;
     private String name;
     private int length;
     private int index;
@@ -52,7 +53,8 @@ public class Character {
             index++;
             if (index == length)
                 return true;
-        }
+        } else
+            error_time++;
         return false;
     }
 
@@ -63,6 +65,7 @@ public class Character {
         final Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             int i = 0;
+
             @Override
             public void run() {
                 frame.post(new Runnable() {
